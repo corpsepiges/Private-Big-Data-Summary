@@ -1,17 +1,24 @@
+﻿/opt/cloudera/parcels/CDH-5.5.2-1.cdh5.5.2.p0.4/lib/hbase/lib
 
+上传hdfs
 
 hdfs dfs -put /opt/cloudera/parcels/CDH-5.5.2-1.cdh5.5.2.p0.4/lib/hbase/lib/HBaseToES.jar /tmp
 
+删除jar包
  hdfs dfs -rm -r /tmp/HBaseToES.jar
+挂载
 disable 'xuxuan_test1'
 alter 'xuxuan_test1', METHOD=>'table_att','coprocessor'=>'hdfs:///tmp/HBaseToES.jar|test.TestObverserToES|1001';
 enable 'xuxuan_test1'
 
+查看状态
 desc 'xuxuan_test1'
 
+挂载
 alter 'testcop', METHOD=>'table_att','coprocessor'=>'hdfs:///tmp/HbaseTestCoprocessor.jar|SolrHBase.SorlIndexCoprocessorObserver|1001';
 
 
+--其他的挂载
 
 alter 'business' , METHOD=>'table_att','coprocessor'=>'hdfs:///tmp/demo.jar|com.xz.hbase.endpoint.endpoint.AvgKeyValueEndPoint|1001'
 alter 'business' , METHOD=>'table_att','coprocessor'=>'hdfs:///tmp/demo.jar|com.xz.hbase.endpoint.endpoint.KeyValueCountEndPoint|1001'
