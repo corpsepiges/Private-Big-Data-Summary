@@ -1,0 +1,3 @@
+select sum(gap) as s from 
+(select day,count(*) as gap from 
+(select *,substr(time,1,10) as day from didi where driver='NULL') group by day order by day);

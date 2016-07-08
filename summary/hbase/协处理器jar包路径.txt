@@ -1,0 +1,21 @@
+
+
+hdfs dfs -put /opt/cloudera/parcels/CDH-5.5.2-1.cdh5.5.2.p0.4/lib/hbase/lib/HBaseToES.jar /tmp
+
+ hdfs dfs -rm -r /tmp/HBaseToES.jar
+disable 'xuxuan_test1'
+alter 'xuxuan_test1', METHOD=>'table_att','coprocessor'=>'hdfs:///tmp/HBaseToES.jar|test.TestObverserToES|1001';
+enable 'xuxuan_test1'
+
+desc 'xuxuan_test1'
+
+alter 'testcop', METHOD=>'table_att','coprocessor'=>'hdfs:///tmp/HbaseTestCoprocessor.jar|SolrHBase.SorlIndexCoprocessorObserver|1001';
+
+
+
+alter 'business' , METHOD=>'table_att','coprocessor'=>'hdfs:///tmp/demo.jar|com.xz.hbase.endpoint.endpoint.AvgKeyValueEndPoint|1001'
+alter 'business' , METHOD=>'table_att','coprocessor'=>'hdfs:///tmp/demo.jar|com.xz.hbase.endpoint.endpoint.KeyValueCountEndPoint|1001'
+alter 'business' , METHOD=>'table_att','coprocessor'=>'hdfs:///tmp/demo.jar|com.xz.hbase.endpoint.endpoint.RowKeyCountEndPoint|1001'
+
+
+

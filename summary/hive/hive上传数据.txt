@@ -1,0 +1,30 @@
+
+create table xx_test(id int,name string) row format delimited fields terminated by '\t' LINES TERMINATED BY '\n';
+create table xx_test(id int,col1 string,col2 string,col3 string,col4 string,col5 string,col6 string,col7 string,col8 string,col9 string,col10 string,col11 string,col12 string,col13 string,col14 string,col15 string,col16 string,col17 string,col18 string,col19 string,col20 string,col21 string,col22 string,col23 string,col24 string,col25 string,col26 string,col27 string,col28 string,col29 string,col30 string,col31 string,col32 string,col33 string,col34 string,col35 string,col36 string,col37 string,col38 string,col39 string,col40 string,col41 string,col42 string,col43 string,col44 string,col45 string,col46 string,col47 string) row format delimited fields terminated by '\t' LINES TERMINATED BY '\n';
+create table xx_test1(id int,col1 string,col2 string,col3 string,col4 string,col5 string,col6 string,col7 string,col8 string,col9 string,col10 string,col11 string,col12 string,col13 string,col14 string,col15 string,col16 string,col17 string,col18 string,col19 string,col20 string,col21 string,col22 string,col23 string,col24 string,col25 string,col26 string,col27 string,col28 string,col29 string,col30 string,col31 string,col32 string,col33 string,col34 string,col35 string,col36 string,col37 string,col38 string,col39 string,col40 string,col41 string,col42 string,col43 string,col44 string,col45 string,col46 string,col47 string) row format delimited fields terminated by '\t' LINES TERMINATED BY '\n';
+
+create table didi(order string,driver string,user string,startad string,endad string,price string,time string)
+row format delimited fields terminated by '\t' LINES TERMINATED BY '\n';
+
+create table didi_test(order string,driver string,user string,startad string,endad string,price string,time string)
+row format delimited fields terminated by '\t' LINES TERMINATED BY '\n';
+
+
+load data local inpath '/root/test.txt' into table xx_test;
+
+load data local inpath '/root/xxtest/*' into table didi_test;
+CREATE EXTERNAL TABLE xx_test_exter(id INT, name string) 
+ROW FORMAT DELIMITED 
+FIELDS TERMINATED BY '\t'
+LINES TERMINATED BY '\n' 
+LOCATION '/chaoyang/xuxuantest/'; 
+
+create table xx_test(id int)
+partitioned by (name string)
+ROW FORMAT DELIMITED 
+FIELDS TERMINATED BY '\t'
+LINES TERMINATED BY '\n';
+
+insert into table xx_test
+partition (name)
+select id ,name from xx_test_exter;
