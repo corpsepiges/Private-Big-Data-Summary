@@ -1,3 +1,51 @@
+﻿
+Presto安装目录
+
+/usr/lib/presto-server-0.96
+
+集群为一台server (h1.hadoop)，三台node(h2.hadoop.h3.hadoop,h5.hadoop)
+
+启动命令
+H1.daoop
+进入/usr/lib/presto-server-0.96/bin目录
+执行./a.sh
+集群内所有机器都启动
+
+重启命令
+进入/usr/lib/presto-server-0.96/bin目录
+执行./b.sh
+集群内所有机器都重新启动
+
+客户端连接
+
+./presto-cli --server localhost:8083 --catalog hive --schema default
+连接的是hive的default库
+
+http://h1.hadoop:8083/
+
+
+
+建表语句：
+Hive   CREATE TABLE page_view (
+      viewTime INT,
+      userid BIGINT,
+      page_url STRING,
+      referrer_url STRING,
+      ip STRING COMMENT 'IP Address of the User')
+    COMMENT 'This is the page view table'
+    PARTITIONED BY (dt STRING, country STRING)
+    STORED AS SEQUENCEFILE;
+OK
+Time taken: 3.644 seconds
+
+
+
+
+select date_parse(substr(alarmtime,1,19),'%Y-%m-%d %H:%i:%s') from vehiclealarmlaoda_p1 where length(alarmtime) > 10 limit 10 
+
+
+
+
 select sum(gap) as s from 
 (select day,count(*) as gap from 
 (select *,substr(time,1,10) as day from didi where driver='NULL') group by day order by day);

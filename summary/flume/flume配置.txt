@@ -1,0 +1,41 @@
+﻿#Agent组件名,数据顺序，source——channel——sink
+agent1.sources = srcxz1
+agent1.channels = chxz1
+agent1.sinks = sinkxz1
+
+#配置sources
+##配置监视的源类型，全程Spooling Directory Source
+agent1.sources.srcxz1.type = spooldir
+###spooldir的属性——配置监视的源文件目录
+agent1.sources.srcxz1.spoolDir = /home/xx/flume/single2hive/source/input
+##spooldir的属性——配置 文件名会被添加到事件的header（这什么鬼我也不懂）
+agent1.sources.srcxz1.fileHeader = false
+##spooldir的属性——配置是否删除使用完的文件
+agent1.sources.srcxz1.deletePolicy = immediate
+##配置sources的下级channel
+agent1.sources.srcxz1.channels = chxz1
+##配置sources的拦截器（这2行没什么用）
+agent1.sources.srcxz1.interceptors = i1
+agent1.sources.srcxz1.interceptors.i1.type = timestamp
+
+#配置channels
+agent1.channels.chxz1.type = file
+agent1.channels.chxz1.checkpointDir= /home/xx/flume/single2hive/channel/checkpoint
+agent1.channels.chxz1.dataDirs= /home/xx/flume/single2hive/channel/data
+
+#配置sinks
+##配置sinks的上级channel
+agent1.sinks.sinkxz1.channel = chxz1
+##配置sinks传输目的地类型
+agent1.sinks.sinkxz1.type = hdfs
+##配置sinks传输目的地类型地址
+agent1.sinks.sinkxz1.hdfs.path = hdfs://nameservice1:8020/tmp/xxtest
+##目的地文件名前缀
+agent1.sinks.sinkxz1.hdfs.filePrefix = eee
+agent1.sinks.sinkxz1.hdfs.inUsePrefix = ._._
+agent1.sinks.sinkxz1.hdfs.rollInterval = 30
+agent1.sinks.sinkxz1.hdfs.rollSize = 0
+agent1.sinks.sinkxz1.hdfs.rollCount = 0
+agent1.sinks.sinkxz1.hdfs.batchSize = 10
+agent1.sinks.sinkxz1.hdfs.writeFormat = text
+agent1.sinks.sinkxz1.hdfs.fileType = DataStream

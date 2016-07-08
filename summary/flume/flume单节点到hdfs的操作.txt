@@ -1,0 +1,44 @@
+﻿一.建立所需文件夹，本地3个，hdfs上一个
+1.source监视的源目录：
+    /home/xx/flume/single2hive/source/input
+2.channel的日志文件
+    /home/xx/flume/single2hive/channel/checkpoint
+    /home/xx/flume/single2hive/channel/data
+3.hdfs上的接收目录：
+    hdfs://nameservice1:8020/tmp/xxtest
+p.s.一定要保证各文件夹拥有权限！！
+
+二.建立配置文件
+    在/home/xx/flume/single2hive目录下建立xx_single2hive.conf配置文件，配置内容见《flume配置.txt》
+
+三.启动
+1.进入flume-ng目录，这里是/usr/bin
+2.启动
+./flume-ng agent --conf-file /home/xx/flume/single2hive/xx_single2hive.conf --name agent1 -Dflume.root.logger=INFO,console
+
+
+
+PS：-Dflume.root.logger=INFO,console 仅为 debug 使用，请勿生产环境生搬硬套，否则大量的日志会返回到终端。。。
+
+-f/--conf-file 后跟具体的配置文件，-n/--name 指定agent的名称
+
+！！！！注意，执行启动后请另开窗口测试
+
+
+
+——————————————————流程与指令分割线————————————
+一
+1.
+  mkdir -p /home/xx/flume/single2hive/source/input
+2.
+  mkdir -p /home/xx/flume/single2hive/channel/checkpoint
+  mkdir -p /home/xx/flume/single2hive/channel/data
+3.
+  hdfs dfs -mkdir -p /tmp/xxtest
+二.
+  cd /home/xx/flume/single2hive
+  vi xx_single2hive.conf
+  把《flume配置.txt》贴进去，保存并退出
+三.
+  cd /usr/bin
+  ./flume-ng agent --conf-file /home/xx/flume/single2hive/xx_single2hive.conf --name agent1 -Dflume.root.logger=INFO,console
