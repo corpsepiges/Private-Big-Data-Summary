@@ -1,0 +1,22 @@
+说明
+databasefile.txt存放的是表对应数据库的对应关系
+例子：table1:2.t_test1
+1、table1表示的是传入的报文中tablename的值，及表名
+2、2.t_test1表示对应的导入数据库的表名
+	2代表的是何种数据库  1:hdfs  2:hbase 3:es 4:hive   
+	t_test1代表表名 如果是导入es，则该字段为book~t_test1,book代表index，t_test1代表type
+3、多个数据库配置使用;隔开
+	
+
+
+colfile.txt存放的是列的对应关系
+例子：table1.col1name:2.t_test1.c-c1
+			table1.col2name:2.t_test1.c-c2
+			table1.col3name:2.t_test1.c-c3
+			table1.col1name:3.test~t_test.name
+			table1.col2name:3.test~t_test.number
+			table1.col3name:3.test~t_test.alis
+1、:号前面为传入报文中的列名
+2、:号后面为对应的导入数据库的表名
+    2.t_test1为databasefile.txt文件中的对应的导入数据库的表名
+    逗号后面的表示列名，hbase中列族和列名用~隔开
