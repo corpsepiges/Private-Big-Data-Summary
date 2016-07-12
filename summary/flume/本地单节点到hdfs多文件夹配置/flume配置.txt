@@ -15,9 +15,9 @@ agent1.sources.srcxz1.deletePolicy = immediate
 ##配置sources的下级channel
 agent1.sources.srcxz1.channels = chxz1
 ##配置sources的拦截器（这2行没什么用）
-agent1.sources.srcxz1.interceptors = i1
+agent1.sources.srcxz1.interceptors = i1 i2
 agent1.sources.srcxz1.interceptors.i1.type = timestamp
-
+agent1.sources.srcxz1.interceptors.i1.type = host
 #配置channels
 agent1.channels.chxz1.type = file
 agent1.channels.chxz1.checkpointDir= /home/xx/flume/single2hive/channel/checkpoint
@@ -29,7 +29,7 @@ agent1.sinks.sinkxz1.channel = chxz1
 ##配置sinks传输目的地类型
 agent1.sinks.sinkxz1.type = hdfs
 ##配置sinks传输目的地类型地址(%M当前分钟，%S当前时间)
-agent1.sinks.sinkxz1.hdfs.path = hdfs://nameservice1:8020/tmp/xxtest/%M/%S
+agent1.sinks.sinkxz1.hdfs.path = hdfs://nameservice1:8020/tmp/xxtest/t1/%{host}/%M%S
 ##目的地文件名前缀
 agent1.sinks.sinkxz1.hdfs.filePrefix = eee
 ##目的地正在使用的文件名前缀

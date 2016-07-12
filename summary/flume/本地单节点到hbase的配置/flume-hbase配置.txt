@@ -1,0 +1,37 @@
+﻿##组件命名： Agent组件名,数据顺序，source——channel——sink
+agent1.sources = srcxz1
+agent1.channels = chxz1
+agent1.sinks = sinkxz1
+#配置sources
+##spooldir的属性——配置是否删除使用完的文件
+agent1.sources.srcxz1.deletePolicy = immediate
+##配置sources的下级channel
+agent1.sources.srcxz1.channels = chxz1
+##配置监视的源类型，全程Spooling Directory Source
+agent1.sources.srcxz1.type = spooldir
+###spooldir的属性——配置监视的源文件目录
+agent1.sources.srcxz1.spoolDir = /home/xx/flume/single2hbase/source/input
+agent1.sources.srcxz1.fileHeader = true
+##配置sources的拦截器（这2行没什么用）
+agent1.sources.srcxz1.interceptors = i1
+agent1.sources.srcxz1.interceptors.i1.type = timestamp
+#配置channels
+agent1.channels.chxz1.type = file
+agent1.channels.chxz1.checkpointDir= /home/xx/flume/single2hbase/channel/checkpoint
+agent1.channels.chxz1.dataDirs= /home/xx/flume/single2hbase/channel/data
+#配置sinks
+##配置sinks的上级channel
+agent1.sinks.sinkxz1.channel = chxz1
+##配置sinks传输目的地类型
+agent1.sinks.sinkxz1.type = asynchbase
+##配置zookeeper
+agent1.sinks.sinkxz1.zookeeperQuorum = hadoop-cdh03.dimensoft.com.cn:2181,hadoop-cdh04.dimensoft.com.cn:2181,hadoop-cm.dimensoft.com.cn:2181
+##配置hbase根目录
+agent1.sinks.sinkxz1.znodeParent = /hbase
+##配置table名
+agent1.sinks.sinkxz1.table = testFlume
+##配置列族名
+agent1.sinks.sinkxz1.columnFamily = A
+##nothing
+agent1.sinks.sinkxz1.batchSize = 1000
+agent1.sinks.sinkxz1.timeout = 60000
