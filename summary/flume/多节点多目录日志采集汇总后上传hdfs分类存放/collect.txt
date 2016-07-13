@@ -1,0 +1,41 @@
+﻿a1.sources = r1
+a1.sinks = k1
+a1.channels = c1
+
+# Describe/configure the source
+a1.sources.r1.type = avro
+#collect的IP地址，跟agent的sink保持一致
+a1.sources.r1.bind = 10.32.92.57
+#collect 端口号？？跟agent的sink保持一致 
+a1.sources.r1.port = 41414
+
+# source r1定义拦截器，为消息添加时间戳
+a1.sources.r1.interceptors = i1
+a1.sources.r1.interceptors.i1.type = org.apache.flume.interceptor.TimestampInterceptor$Builder
+
+
+#具体定义sink
+a1.sinks.k1.type = hdfs
+a1.sinks.k1.hdfs.path = hdfs://nameservice1:8020/tmp/xxtest/fuck/%{type}/%Y%m%d
+#指定文件前缀
+a1.sinks.k1.hdfs.filePrefix = events-
+#不压缩
+a1.sinks.k1.hdfs.fileType = DataStream
+#如果压缩指定压缩的方式
+#a1.sinks.k1.hdfs.fileType = CompressedStream
+#a1.sinks.k1.hdfs.codeC = gzip
+#不按照条数生成文件
+a1.sinks.k1.hdfs.rollCount = 0
+#如果压缩存储的话HDFS上的文件达到64M时生成一个文件注意是压缩前大小为64生成一个文件，然后压缩存储。
+#a1.sinks.k1.hdfs.rollSize = 67108864
+a1.sinks.k1.hdfs.rollSize = 0
+a1.sinks.k1.hdfs.rollInterval = 0
+
+# Use a channel which buffers events in memory
+a1.channels.c1.type = memory
+a1.channels.c1.capacity = 10000
+a1.channels.c1.transactionCapacity = 1000
+
+# Bind the source and sink to the channel
+a1.sources.r1.channels = c1
+a1.sinks.k1.channel = c1

@@ -1,0 +1,8 @@
+﻿0.collect.conf和agent.conf放在各自的机子上
+1.先启动collect
+2.collect启动成功后再启动agent
+
+agent启动成功，则collect会提示3条ipc.NettyServer信息
+分别是，OPEN,BOUND,CONNECTED
+
+3.telnet通信，暂未测试

@@ -1,0 +1,43 @@
+﻿# Name the components on this agent
+a1.sources = r1 r2 r3
+a1.sinks = k1
+a1.channels = c1
+
+# Describe/configure the source
+a1.sources.r1.type = exec
+a1.sources.r1.command = tail -F /home/xx/flume/logCollect/data/access.log
+a1.sources.r1.interceptors = i1
+a1.sources.r1.interceptors.i1.type = static
+a1.sources.r1.interceptors.i1.key = type
+a1.sources.r1.interceptors.i1.value = access
+
+a1.sources.r2.type = exec
+a1.sources.r2.command = tail -F /home/xx/flume/logCollect/data/ugchead.log
+a1.sources.r2.interceptors = i2
+a1.sources.r2.interceptors.i2.type = static
+a1.sources.r2.interceptors.i2.key = type
+a1.sources.r2.interceptors.i2.value = ugchead
+
+a1.sources.r3.type = exec
+a1.sources.r3.command = tail -F /home/xx/flume/logCollect/data/ugctail.log
+a1.sources.r3.interceptors = i3
+a1.sources.r3.interceptors.i3.type = static
+a1.sources.r3.interceptors.i3.key = type
+a1.sources.r3.interceptors.i3.value = ugctail
+
+
+# Describe the sink
+a1.sinks.k1.type = avro
+a1.sinks.k1.hostname = 10.32.92.57
+a1.sinks.k1.port = 41414
+
+# Use a channel which buffers events in memory
+a1.channels.c1.type = memory
+a1.channels.c1.capacity = 1000
+a1.channels.c1.transactionCapacity = 100
+
+# Bind the source and sink to the channel
+a1.sources.r1.channels = c1
+a1.sources.r2.channels = c1
+a1.sources.r3.channels = c1
+a1.sinks.k1.channel = c1

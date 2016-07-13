@@ -1,0 +1,22 @@
+﻿a1.sources  = r1
+a1.sinks =  k1
+a1.channels  = c1
+
+#  Describe/configure the source
+a1.sources.r1.type  = netcat //这里的数据源设置成netcat，后面将通过telnet传送信息
+a1.sources.r1.bind  = 0.0.0.0 //建议  
+a1.sources.r1.port  = 44444
+
+# Describe  the sink
+a1.sinks.k1.type  =avro
+a1.sinks.k1.hostname=192.168.150.135  //collect 的IP地址，注意
+a1.sinks.k1.port=60000 //这里的接口要与collect source的接口一致。
+
+# Use a  channel which buffers events in memory
+a1.channels.c1.type  = memory
+a1.channels.c1.capacity  = 1000
+a1.channels.c1.transactionCapacity  = 100
+
+# Bind the  source and sink to the channel
+a1.sources.r1.channels  = c1
+a1.sinks.k1.channel  = c1
