@@ -1,0 +1,18 @@
+1.修改
+a1.sinks.k1.brokerList=192.168.99.15:9092,192.168.99.16:9092
+
+2.修改本地读取的文件路径
+a1.sources.r1.spoolDir=/home/xx/flume/kafka/input
+
+3.修改kafka的topic名
+a1.sinks.k1.topic= flume_topic
+
+4.保存配置文件名启动flume
+cd /usr/lib/flume1.6/bin
+
+./flume-ng agent --conf-file /home/xx/flume/kafka/kafka.conf --name a1 -Dflume.root.logger=INFO,console
+
+5.启动kafka消费者
+cd /usr/lib/kafka_2.11-0.10.0.0
+
+bin/kafka-console-consumer.sh --zookeeper  localhost:2181  --from-beginning --topic testFlume

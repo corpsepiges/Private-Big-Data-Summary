@@ -1,0 +1,5 @@
+﻿apache-flume1.6
+http://apache.fayea.com/flume/1.6.0/apache-flume-1.6.0-bin.tar.gz
+
+apache-kafka0.10
+http://apache.claz.org/kafka/0.10.0.0/kafka_2.11-0.10.0.0.tgz

@@ -1,0 +1,32 @@
+﻿a1.sources=r1
+a1.sinks=k1
+a1.channels=c1
+
+a1.sources.r1.channels=c1
+a1.sources.r1.type=spooldir
+a1.sources.r1.spoolDir=/home/xx/flume/kafka/input
+agent1.sources.srcxz1.deletePolicy = immediate
+
+#这个版本好像有问题
+#a1.sinks.k1.type=org.apache.flume.plugins.KafkaSink
+a1.sinks.k1.type=org.apache.flume.sink.kafka.KafkaSink
+
+#这个版本也有问题
+#a1.sinks.k1.metadata.broker.list=192.168.99.15:9092,192.168.99.16:9092
+a1.sinks.k1.brokerList=192.168.99.15:9092,192.168.99.16:9092
+
+a1.sinks.k1.serializer.class=kafka.serializer.StringEncoder 
+a1.sinks.k1.request.required.acks=1
+a1.sinks.k1.max.message.size=1000000       
+a1.sinks.k1.producer.type=sync
+a1.sinks.k1.custom.encoding=UTF-8
+
+#这个版本还是有问题
+#a1.sinks.k1.custom.topic.name=testFlume
+a1.sinks.k1.topic= flume_topic
+
+a1.sinks.k1.channel=c1
+
+a1.channels.c1.type = memory                
+a1.channels.c1.capacity=1000000
+a1.channels.c1.transactionCapacity=1000000
